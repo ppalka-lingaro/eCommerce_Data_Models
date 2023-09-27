@@ -1,0 +1,32 @@
+classes: {...@../Classes/ecommerce.classes}
+cart: {
+  shape: sql_table
+  id: STRING {constraint: primary_key}
+  session_id: STRING
+  quantity: INT
+  value: FLOAT
+  style.fill: "#000000"
+}
+
+cart_line_item: {
+  shape: sql_table
+  id: STRING {constraint: primary_key}
+  cart_id: STRING {constraint: foreign_key}
+  product_id: STRING {constraint: foreign_key}
+  quantity: INT
+  value: FLOAT
+  style.fill: "#000000"
+}
+
+product: {
+  shape: sql_table
+  id: STRING {constraint: primary_key}
+  sku: STRING
+  name: STRING
+  price: FLOAT
+  store_id: STRING {constraint: foreign_key}
+  categories: "ARRAY OF category_id" {constraint: foreign_key}
+  style.fill: "#000000"
+}
+
+product.id <-> cart_line_item.product_id: is for {class: 1-om}
